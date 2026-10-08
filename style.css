@@ -1,0 +1,768 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at 10% 20%, #ffd6f6 0 4%, transparent 5%),
+        radial-gradient(circle at 90% 15%, #fff3a6 0 4%, transparent 5%),
+        radial-gradient(circle at 15% 85%, #c9f7ff 0 4%, transparent 5%),
+        linear-gradient(135deg, #8b5cf6, #c084fc, #f472b6);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: #3b275f;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+header {
+    width: 100%;
+    text-align: center;
+    padding: 30px 15px 20px;
+    color: white;
+}
+
+header h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+
+    text-shadow: 3px 3px 0px #6d28d9;
+}
+
+header p {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   ÁREA PRINCIPAL
+========================= */
+
+main {
+    width: 92%;
+    max-width: 750px;
+}
+
+
+/* =========================
+   TELAS
+========================= */
+
+.tela {
+    background: rgba(255, 255, 255, 0.96);
+
+    padding: 35px;
+
+    border-radius: 30px;
+
+    text-align: center;
+
+    border: 5px solid white;
+
+    box-shadow:
+        0 10px 0px rgba(76, 29, 149, 0.25),
+        0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tela h2 {
+    color: #7c3aed;
+
+    font-size: 28px;
+
+    margin-bottom: 20px;
+}
+
+.tela p {
+    font-size: 18px;
+
+    line-height: 1.5;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+button {
+    border: none;
+
+    border-radius: 15px;
+
+    padding: 15px 28px;
+
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 6px 0px #6d28d9;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 9px 0px #6d28d9;
+}
+
+button:active {
+    transform: translateY(3px);
+
+    box-shadow: 0 3px 0px #6d28d9;
+}
+
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.informacoes {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    padding: 12px 18px;
+
+    background: #f3e8ff;
+
+    border-radius: 15px;
+
+    color: #6d28d9;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    border: 2px dashed #c084fc;
+}
+
+
+/* =========================
+   TABULEIRO
+========================= */
+
+#tabuleiro {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+
+    max-width: 550px;
+
+    margin: auto;
+}
+
+
+/* =========================
+   CARTAS
+========================= */
+
+.carta {
+    height: 110px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #ec4899
+        );
+
+    border: 4px solid white;
+
+    box-shadow:
+        0 6px 0px #6d28d9,
+        0 8px 12px rgba(0, 0, 0, 0.18);
+
+    transition: transform 0.25s, background 0.25s;
+
+    position: relative;
+}
+
+
+/* Desenho na parte de trás da carta */
+
+.carta::before {
+    content: "⭐";
+    font-size: 35px;
+}
+
+
+/* Quando passa o mouse */
+
+.carta:hover {
+    transform: rotate(-3deg) scale(1.05);
+}
+
+
+/* =========================
+   CARTA ABERTA
+========================= */
+
+.carta.aberta {
+    background: linear-gradient(
+        135deg,
+        #fde68a,
+        #fbbf24
+    );
+
+    color: #4c1d95;
+
+    cursor: default;
+
+    transform: rotate(0deg) scale(1.02);
+
+    box-shadow:
+        0 6px 0px #d97706,
+        0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Remove a estrela quando a carta abre */
+
+.carta.aberta::before {
+    content: "";
+}
+
+
+/* =========================
+   CARTA ENCONTRADA
+========================= */
+
+.carta.encontrada {
+    background: linear-gradient(
+        135deg,
+        #86efac,
+        #22c55e
+    );
+
+    color: white;
+
+    cursor: default;
+
+    animation: acertou 0.5s ease;
+
+    box-shadow:
+        0 6px 0px #15803d,
+        0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================
+   ANIMAÇÃO DO ACERTO
+========================= */
+
+@keyframes acertou {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15) rotate(3deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================
+   TELA FINAL
+========================= */
+
+#final h2 {
+    font-size: 35px;
+
+    animation: pular 1s infinite alternate;
+}
+
+@keyframes pular {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+/* =========================
+   ESCONDER
+========================= */
+
+.escondido {
+    display: none;
+}
+
+
+/* =========================
+   RODAPÉ
+========================= */
+
+footer {
+    margin-top: auto;
+
+    padding: 25px;
+
+    color: white;
+
+    text-align: center;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 600px) {
+
+    header h1 {
+        font-size: 31px;
+    }
+
+    header p {
+        font-size: 16px;
+    }
+
+    .tela {
+        padding: 22px 15px;
+
+        border-radius: 25px;
+    }
+
+    .tela h2 {
+        font-size: 24px;
+    }
+
+    #tabuleiro {
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 10px;
+    }
+
+    .carta {
+        height: 90px;
+
+        font-size: 17px;
+
+        border-radius: 15px;
+    }
+
+    .carta::before {
+        font-size: 27px;
+    }
+
+    .informacoes {
+        font-size: 14px;
+    }
+
+}
+
+/* =========================
+   TELA INICIAL DIVERTIDA
+========================= */
+
+.tela-inicial {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 10% 10%, #ffe4f7, transparent 25%),
+        radial-gradient(circle at 90% 90%, #e0d4ff, transparent 25%),
+        white;
+
+    padding: 35px 30px;
+}
+
+
+/* Estrelinhas */
+
+.decoracao {
+    font-size: 25px;
+
+    letter-spacing: 8px;
+
+    margin-bottom: 10px;
+
+    animation: estrelas 2s infinite alternate;
+}
+
+@keyframes estrelas {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.08);
+    }
+
+}
+
+
+.inferior {
+    margin-top: 25px;
+
+    margin-bottom: 0;
+}
+
+
+/* Ícone grande */
+
+.icone-jogo {
+    width: 100px;
+    height: 100px;
+
+    margin: 10px auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 55px;
+
+    background: linear-gradient(
+        135deg,
+        #c084fc,
+        #f472b6
+    );
+
+    border: 5px solid white;
+
+    box-shadow:
+        0 7px 0 #7c3aed,
+        0 10px 20px rgba(0,0,0,0.15);
+
+    animation: flutuar 2s infinite ease-in-out;
+}
+
+@keyframes flutuar {
+
+    0%, 100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(3deg);
+    }
+
+}
+
+
+.tela-inicial h2 {
+    font-size: 34px;
+
+    color: #7c3aed;
+
+    margin-bottom: 10px;
+}
+
+
+.subtitulo {
+    font-size: 19px !important;
+
+    font-weight: bold;
+
+    color: #6b21a8;
+}
+
+
+/* Caixa de instruções */
+
+.caixa-como-jogar {
+
+    margin: 20px auto;
+
+    padding: 18px;
+
+    max-width: 450px;
+
+    background: #f5edff;
+
+    border: 3px dashed #c084fc;
+
+    border-radius: 20px;
+
+    text-align: left;
+}
+
+.caixa-como-jogar h3 {
+    text-align: center;
+
+    color: #7c3aed;
+
+    margin-bottom: 12px;
+
+    font-size: 21px;
+}
+
+.caixa-como-jogar p {
+    font-size: 16px !important;
+
+    margin-bottom: 7px !important;
+}
+
+
+/* Desafio */
+
+.desafio {
+
+    background: linear-gradient(
+        135deg,
+        #fef3c7,
+        #fde68a
+    );
+
+    color: #92400e;
+
+    padding: 12px;
+
+    border-radius: 15px;
+
+    font-weight: bold;
+
+    margin: 20px auto;
+
+    max-width: 500px;
+}
+
+
+/* Botão principal */
+
+.botao-jogar {
+
+    font-size: 20px;
+
+    padding: 17px 35px;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #ec4899
+    );
+
+    animation: pulsar 1.8s infinite;
+}
+
+@keyframes pulsar {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+}
+
+
+/* =========================
+   TELA FINAL
+========================= */
+
+.tela-final {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 15% 20%, #ffe4f7, transparent 25%),
+        radial-gradient(circle at 85% 80%, #ddd6fe, transparent 25%),
+        white;
+
+    padding: 35px 30px;
+}
+
+
+/* Confetes */
+
+.confetes {
+    font-size: 27px;
+
+    letter-spacing: 8px;
+
+    margin-bottom: 10px;
+
+    animation: confete 1s infinite alternate;
+}
+
+@keyframes confete {
+
+    from {
+        transform: rotate(-2deg);
+    }
+
+    to {
+        transform: rotate(2deg);
+    }
+
+}
+
+
+/* Troféu */
+
+.trofeu {
+
+    font-size: 75px;
+
+    margin: 5px auto 10px;
+
+    animation: trofeu 1.2s infinite alternate;
+}
+
+@keyframes trofeu {
+
+    from {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    to {
+        transform: translateY(-10px) rotate(5deg);
+    }
+
+}
+
+
+.tela-final h2 {
+
+    font-size: 35px;
+
+    color: #7c3aed;
+
+    margin-bottom: 10px;
+}
+
+
+.parabens {
+
+    color: #6b21a8;
+
+    font-weight: bold;
+
+    font-size: 20px !important;
+}
+
+
+/* Resultado */
+
+.resultado-final {
+
+    margin: 20px auto;
+
+    padding: 20px;
+
+    max-width: 500px;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #f3e8ff,
+        #fce7f3
+    );
+
+    border: 3px solid #d8b4fe;
+
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+}
+
+.resultado-final p {
+
+    margin: 0;
+
+    font-size: 19px !important;
+
+    font-weight: bold;
+
+    color: #5b21b6;
+}
+
+
+/* Estrelas */
+
+.estrelas {
+
+    font-size: 25px;
+
+    letter-spacing: 5px;
+
+    margin: 15px 0;
+
+    animation: brilho 1s infinite alternate;
+}
+
+@keyframes brilho {
+
+    from {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+}
+
+
+.mensagem-extra {
+
+    font-size: 15px !important;
+
+    color: #777;
+
+    margin-top: 20px !important;
+}
